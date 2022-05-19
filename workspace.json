@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "shakespearean-pokedex": "apps/shakespearean-pokedex",
+    "shakespearean-pokedex-e2e": "apps/shakespearean-pokedex-e2e"
+  }
+}
