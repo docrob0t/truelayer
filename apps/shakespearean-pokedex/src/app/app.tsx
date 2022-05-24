@@ -1,27 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from '@truelayer/api-interfaces';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Pokemon } from '@truelayer/api-interfaces';
+import { PokemonCard } from './components/PokemonCard';
 
 export const App = () => {
-  const [m, setMessage] = useState<Message>({ message: '' });
+  const [inputs, setInputs] = useState({pokemon: ''});
+  const [pokemonData, setPokemonData] = useState<Pokemon>();
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch('/api')
-      .then((r) => r.json())
-      .then(setMessage);
-  }, []);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs(values => ({...values, [name]: value}))
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    axios.get(`/pokemon/${inputs.pokemon}`)
+      .then(({data}) => {
+        console.log(data);
+        setPokemonData({
+          ...pokemonData,
+          name: data.name,
+          description: data.description,
+          sprite: data.sprite
+        });
+      })
+      .catch(err => {
+        setError(err);
+      });
+  }
 
   return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        <h1>Welcome to shakespearean-pokedex!</h1>
-        <img
-          width="450"
-          src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-          alt="Nx - Smart, Fast and Extensible Build System"
+    <div>
+      <h1>Welcome to Shakespearean Pokedex!</h1>
+      <form onSubmit={handleSubmit}>
+        <label>Enter a pokemon name:</label>
+        <input
+          type="text"
+          name="pokemon"
+          value={inputs.pokemon || ""}
+          onChange={handleChange}
         />
-      </div>
-      <div>{m.message}</div>
-    </>
+        <input type="submit" />
+      </form>
+
+      {error && <span>Something went wrong ...</span>}
+
+      {pokemonData &&
+        <PokemonCard
+          name={pokemonData?.name}
+          description={pokemonData?.description}
+          sprite={pokemonData?.sprite}
+        />
+      }
+    </div>
   );
 };
 

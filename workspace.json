@@ -4,7 +4,6 @@
   "projects": {
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
-    "shakespearean-pokedex": "apps/shakespearean-pokedex",
-    "shakespearean-pokedex-e2e": "apps/shakespearean-pokedex-e2e"
+    "shakespearean-pokedex": "apps/shakespearean-pokedex"
   }
 }

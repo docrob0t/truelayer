@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/web:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
@@ -16,7 +18,6 @@
         "polyfills": "apps/shakespearean-pokedex/src/polyfills.ts",
         "tsConfig": "apps/shakespearean-pokedex/tsconfig.app.json",
         "assets": [
-          "apps/shakespearean-pokedex/src/favicon.ico",
           "apps/shakespearean-pokedex/src/assets"
         ],
         "styles": [],
@@ -66,14 +67,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/shakespearean-pokedex/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/shakespearean-pokedex/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/shakespearean-pokedex"],
+      "outputs": [
+        "coverage/apps/shakespearean-pokedex"
+      ],
       "options": {
         "jestConfig": "apps/shakespearean-pokedex/jest.config.ts",
         "passWithNoTests": true
